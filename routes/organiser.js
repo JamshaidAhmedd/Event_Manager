@@ -403,6 +403,7 @@ router.get('/bookings', (req, res) => {
            e.title, e.event_date 
     FROM bookings AS b 
     JOIN events AS e ON b.event_id = e.event_id
+    -- order first by event date then by booking ID
     ORDER BY e.event_date ASC, b.booking_id ASC
   `;
   db.all(sql, (err, rows) => {

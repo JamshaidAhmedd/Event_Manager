@@ -23,6 +23,7 @@ The application will be available at `http://localhost:3000`.
 
 - Organiser login protected by a password (`ORGANISER_PASSWORD` env var, default `admin`).
 - Manage site settings, create/edit/publish events and view all bookings.
+- Bookings list is ordered by event date and then by booking ID.
 - Attendees can view published events and book tickets while availability lasts.
 
 All routes use parameterised queries and server-side validation. The interface is styled with Bootstrap and custom CSS located in `public/main.css`.
