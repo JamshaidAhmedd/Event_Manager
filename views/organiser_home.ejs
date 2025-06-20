@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Organiser Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/@adminkit/core@3.0.0/dist/css/app.min.css" rel="stylesheet">
+  <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+  <div class="wrapper">
+    <nav id="sidebar" class="sidebar js-sidebar">
+      <a class="sidebar-brand" href="/organiser">
+        <span class="align-middle">Organiser</span>
+      </a>
+      <ul class="sidebar-nav">
+        <li class="sidebar-item"><a class="sidebar-link" href="/organiser">Dashboard</a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="/organiser/settings">Settings</a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="/organiser/bookings">Bookings</a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="/organiser/logout">Logout</a></li>
+      </ul>
+    </nav>
+    <div class="main">
+      <nav class="navbar navbar-expand navbar-light navbar-bg">
+        <a class="sidebar-toggle js-sidebar-toggle">
+          <i class="hamburger align-self-center"></i>
+        </a>
+      </nav>
+      <main class="content">
+        <div class="container-fluid p-0">
+    <h1 class="mb-3">Organiser Home Page</h1>
+    <!-- Display site name and description -->
+    <h3><%= siteName %></h3>
+    <p><%= siteDescription %></p>
+    <!-- Button to create a new event -->
+    <form action="/organiser/event/new" method="POST" class="mb-4">
+      <button type="submit" class="btn btn-primary">Create New Event</button>
+    </form>
+    <!-- Published Events List -->
+    <h4>Published Events</h4>
+    <% if (publishedEvents.length === 0) { %>
+      <p>No events have been published yet.</p>
+    <% } else { %>
+      <div class="table-responsive">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Date</th>
+              <th>Created</th>
+              <th>Published</th>
+              <th>Tickets (remaining/total)</th>
+              <th>Attendee Link</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% publishedEvents.forEach(function(event) { %>
+              <tr>
+                <td><%= event.title %></td>
+                <td><%= event.event_date ? event.event_date : 'TBA' %></td>
+                <td><%= event.created_at %></td>
+                <td><%= event.published_at ? event.published_at : '-' %></td>
+                <td>
+                  Full: <%= event.remain_full %>/<%= event.tickets_full_count %>, 
+                  Conc: <%= event.remain_concession %>/<%= event.tickets_concession_count %>
+                </td>
+                <td>
+                  <!-- Share link for attendee page -->
+                  <a href="<%= event.shareLink %>" target="_blank"><%= event.shareLink %></a>
+                </td>
+                <td>
+                  <!-- Delete published event -->
+                  <form action="/organiser/event/<%= event.event_id %>/delete" method="POST" onsubmit="return confirm('Delete this event? This will remove all bookings.')">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+    <!-- Draft Events List -->
+    <h4 class="mt-5">Draft Events</h4>
+    <% if (draftEvents.length === 0) { %>
+      <p>No draft events. Use "Create New Event" to add one.</p>
+    <% } else { %>
+      <div class="table-responsive">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Date</th>
+              <th>Created</th>
+              <th>Published</th>
+              <th>Tickets (remaining/total)</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% draftEvents.forEach(function(event) { %>
+              <tr>
+                <td><%= event.title %></td>
+                <td><%= event.event_date ? event.event_date : 'TBA' %></td>
+                <td><%= event.created_at %></td>
+                <td><%= event.published_at ? event.published_at : '-' %></td>
+                <td>
+                  Full: <%= event.remain_full %>/<%= event.tickets_full_count %>, 
+                  Conc: <%= event.remain_concession %>/<%= event.tickets_concession_count %>
+                </td>
+                <td>
+                  <!-- Edit draft event -->
+                  <a href="/organiser/event/<%= event.event_id %>" class="btn btn-outline-primary btn-sm">Edit</a>
+                  <!-- Publish draft event -->
+                  <form action="/organiser/event/<%= event.event_id %>/publish" method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-success btn-sm">Publish</button>
+                  </form>
+                  <!-- Delete draft event -->
+                  <form action="/organiser/event/<%= event.event_id %>/delete" method="POST" class="d-inline" onsubmit="return confirm('Delete this draft event?');">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@adminkit/core@3.0.0/dist/js/app.min.js"></script>
+</body>
+</html>

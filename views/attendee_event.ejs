@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Event Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/@adminkit/core@3.0.0/dist/css/app.min.css" rel="stylesheet">
+  <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-4">
+    <h1 class="mb-4">Attendee Event Page</h1>
+    <!-- Event details -->
+    <h2><%= event.title %></h2>
+    <p><%= event.description %></p>
+    <p><strong>Date:</strong> <%= event.event_date ? event.event_date : 'To be announced' %></p>
+    <p><strong>Ticket Prices:</strong> Full &ndash; <%= event.full_price.toFixed(2) %>, Concession &ndash; <%= event.concession_price.toFixed(2) %></p>
+    <% if (error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+    <% if (success) { %>
+      <div class="alert alert-success">Booking successful! Your tickets have been reserved.</div>
+    <% } %>
+    <!-- Booking form (only show if there are tickets available or allow name even if sold out for disabling form) -->
+    <% if (event.remain_full === 0 && event.remain_concession === 0) { %>
+      <div class="alert alert-warning">This event is sold out. No tickets available.</div>
+    <% } else { %>
+      <form action="/attendee/event/<%= event.event_id %>" method="POST" class="mb-3">
+        <div class="mb-3">
+          <label class="form-label" for="full_count">
+            Full Tickets (Price: <%= event.full_price.toFixed(2) %>) 
+            <% if (event.remain_full === 0) { %>
+              – <span class="sold-out">Sold out</span>
+            <% } else { %>
+              – <span class="text-muted"><%= event.remain_full %> available</span>
+            <% } %>
+          </label>
+          <input type="number" name="full_count" id="full_count" class="form-control"
+                 value="<%= event.full_count_attempt !== undefined ? event.full_count_attempt : 0 %>"
+                 min="0" max="<%= event.remain_full %>" <%= event.remain_full === 0 ? 'disabled' : '' %>>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="concession_count">
+            Concession Tickets (Price: <%= event.concession_price.toFixed(2) %>) 
+            <% if (event.remain_concession === 0) { %>
+              – <span class="sold-out">Sold out</span>
+            <% } else { %>
+              – <span class="text-muted"><%= event.remain_concession %> available</span>
+            <% } %>
+          </label>
+          <input type="number" name="concession_count" id="concession_count" class="form-control"
+                 value="<%= event.concession_count_attempt !== undefined ? event.concession_count_attempt : 0 %>"
+                 min="0" max="<%= event.remain_concession %>" <%= event.remain_concession === 0 ? 'disabled' : '' %>>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="name">Your Name:</label>
+          <input type="text" name="name" id="name" class="form-control"
+                 value="<%= event.bookingNameAttempt ? event.bookingNameAttempt : '' %>" required>
+        </div>
+        <button type="submit" class="btn btn-success">Book Tickets</button>
+      </form>
+    <% } %>
+    <a href="/attendee" class="btn btn-secondary">Back to Events List</a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@adminkit/core@3.0.0/dist/js/app.min.js"></script>
+</body>
+</html>

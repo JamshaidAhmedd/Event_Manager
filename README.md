@@ -1,21 +1,8 @@
-##  Coursework Template ##
-### CM2040 Database Networks and the Web ###
-
-#### Installation requirements ####
-
-* NodeJS 
-    - follow the install instructions at https://nodejs.org/en/
-    - we recommend using the latest LTS version
-* Sqlite3 
-    - follow the instructions at https://www.tutorialspoint.com/sqlite/sqlite_installation.htm 
-    - Note that the latest versions of the Mac OS and Linux come with SQLite pre-installed
-
-#### Using this template ####
-
-This template sets you off in the right direction for your coursework. To get started:
-
-* Run ```npm install``` from the project directory to install all the node packages.
-
+- Organiser login protected by a password (`ORGANISER_PASSWORD` env var, default `admin`).
+- Manage site settings, create/edit/publish events and view all bookings.
+- Bookings list is ordered by event date and then by booking ID.
+- Attendees can view published events and book tickets while availability lasts.
+=======
 * Run ```npm run build-db``` to create the database on Mac or Linux 
 or run ```npm run build-db-win``` to create the database on Windows
 
@@ -63,3 +50,4 @@ Edit this README.md to explain any specific instructions for setting up or using
 
 NB. we will ONLY run ```npm install```, ```npm run build-db```, and ```npm run start``` . We will NOT install additional packages to run your code and will NOT run additional build scripts. Be careful with any additional node dependencies that you use.
 
+All routes use parameterised queries and server-side validation. The interface is styled with the AdminKit template and custom CSS located in `public/main.css`.
