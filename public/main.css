@@ -1,5 +1,14 @@
-body { font-family: Arial, sans-serif; margin: 2em; }
-form p { margin-bottom: 0.5em; }
-table { border-collapse: collapse; width: 100%; margin-top: 1em; }
-table, th, td { border: 1px solid #ccc; }
-th, td { padding: 0.5em; text-align: left; }
+/* Custom styles for the Event Manager app */
+body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  margin-bottom: 40px;
+}
+
+/* Style for "sold-out" text */
+.sold-out {
+  color: #d9534f;  /* Bootstrap danger color (red) */
+  font-weight: bold;
+}

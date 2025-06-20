@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Site Settings</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-4">
+    <!-- Nav bar (same as organiser home) -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/organiser">Organiser</a>
+        <div class="navbar-nav">
+          <a class="nav-link active" href="/organiser/settings">Site Settings</a>
+          <a class="nav-link" href="/organiser/bookings">All Bookings</a>
+          <a class="nav-link" href="/organiser/logout">Logout</a>
+        </div>
+      </div>
+    </nav>
+    <h1 class="mb-4">Site Settings</h1>
+    <% if (error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+    <form action="/organiser/settings" method="POST">
+      <div class="mb-3">
+        <label for="name" class="form-label">Site Name:</label>
+        <input type="text" name="name" id="name" class="form-control" value="<%= name %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Site Description:</label>
+        <textarea name="description" id="description" class="form-control" rows="2" required><%= description %></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Save Settings</button>
+      <a href="/organiser" class="btn btn-secondary">Back to Home</a>
+    </form>
+  </div>
+</body>
+</html>
