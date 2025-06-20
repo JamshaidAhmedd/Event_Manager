@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+    <title>Add Event</title>
+</head>
+<body>
+    <h1>Add Event</h1>
+    <form action="add-event" method="post">
+        <p>Name: <input type="text" name="event_name" required /></p>
+        <p>Date: <input type="date" name="event_date" required /></p>
+        <p>Capacity: <input type="number" name="capacity" required min="1" /></p>
+        <button type="submit">Create Event</button>
+    </form>
+</body>
+</html>

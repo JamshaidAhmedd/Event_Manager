@@ -18,7 +18,32 @@ CREATE TABLE IF NOT EXISTS email_accounts (
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
+CREATE TABLE IF NOT EXISTS site_settings (
+    setting_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    site_name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS events (
+    event_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    event_name TEXT NOT NULL,
+    event_date TEXT NOT NULL,
+    capacity INTEGER NOT NULL,
+    published INTEGER DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS bookings (
+    booking_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    event_id INTEGER NOT NULL,
+    attendee_name TEXT NOT NULL,
+    tickets INTEGER NOT NULL,
+    FOREIGN KEY(event_id) REFERENCES events(event_id)
+);
+
 -- Insert default data (if necessary here)
+INSERT INTO site_settings (site_name) VALUES ("My Events");
+
+INSERT INTO events (event_name, event_date, capacity, published) VALUES ("Launch Party", "2024-12-01", 100, 1);
+
 
 -- Set up three users
 INSERT INTO users ('user_name') VALUES ('Simon Star');

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+    <title>Events</title>
+</head>
+<body>
+    <h1>Events</h1>
+    <table>
+        <thead>
+            <tr><th>Name</th><th>Date</th><th>Capacity</th><th>Published</th></tr>
+        </thead>
+        <tbody>
+            <% events.forEach(function(event){ %>
+                <tr>
+                    <td><%= event.event_name %></td>
+                    <td><%= event.event_date %></td>
+                    <td><%= event.capacity %></td>
+                    <td><%= event.published ? 'Yes' : 'No' %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>

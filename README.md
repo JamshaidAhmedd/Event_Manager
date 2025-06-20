@@ -60,3 +60,12 @@ Edit this README.md to explain any specific instructions for setting up or using
 
 NB. we will ONLY run ```npm install```, ```npm run build-db```, and ```npm run start``` . We will NOT install additional packages to run your code and will NOT run additional build scripts. Be careful with any additional node dependencies that you use.
 
+
+### Event Manager Demo
+
+Additional routes are provided for managing events:
+* `GET /events/list-events` to view events
+* `GET /events/add-event` to display the add form
+* `POST /events/add-event` to create a new event
+
+Run `npm run build-db` then `npm start` to launch the demo.
