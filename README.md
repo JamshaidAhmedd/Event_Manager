@@ -1,6 +1,6 @@
 # Event Manager
 
-This demo Express application provides a simple event management system with organiser and attendee sections.
+This demo Express application provides a simple event management system with organiser and attendee sections. The organiser dashboard is styled with the CoreUI admin template.
 
 ## Setup
 
@@ -26,4 +26,4 @@ The application will be available at `http://localhost:3000`.
 - Bookings list is ordered by event date and then by booking ID.
 - Attendees can view published events and book tickets while availability lasts.
 
-All routes use parameterised queries and server-side validation. The interface is styled with Bootstrap and custom CSS located in `public/main.css`.
+All routes use parameterised queries and server-side validation. The interface is styled with the CoreUI Bootstrap template and custom CSS located in `public/main.css`.
