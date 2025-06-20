@@ -26,5 +26,6 @@ The application will be available at `http://localhost:3000`.
 - Bookings list is ordered by event date and then by booking ID.
 - Attendees can view published events and book tickets while availability lasts.
 - Landing page with hero background and modern navigation.
+- Hero banner uses a remote Unsplash image to avoid bundling binaries.
 
 All routes use parameterised queries and server-side validation. The interface is styled with the AdminKit template and custom CSS located in `public/main.css`.
