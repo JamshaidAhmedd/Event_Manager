@@ -31,7 +31,10 @@ You can also run:
 ```npm run clean-db``` to delete the database on Mac or Linux before rebuilding it for a fresh start
 ```npm run clean-db-win``` to delete the database on Windows before rebuilding it for a fresh start
 
-Please also read the document ```Working with this Template.pdf``` for further guidance.
+
+The application design no longer stores local binary images. The hero section
+uses a CSS gradient defined in `public/main.css` so there is no need for a local
+`hero.jpg` file.
 
 ##### Creating database tables #####
 
