@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Event</title>
+  <link href="https://cdn.jsdelivr.net/npm/@adminkit/core@3.0.0/dist/css/app.min.css" rel="stylesheet">
+  <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Event Manager</a>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="/organiser">Dashboard</a>
+        <a class="nav-link" href="/attendee">Events</a>
+      </div>
+    </div>
+  </nav>
+  <div class="wrapper">
+    <nav id="sidebar" class="sidebar js-sidebar">
+      <a class="sidebar-brand" href="/organiser">
+        <span class="align-middle">Organiser</span>
+      </a>
+      <ul class="sidebar-nav">
+        <li class="sidebar-item"><a class="sidebar-link" href="/organiser">Dashboard</a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="/organiser/settings">Settings</a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="/organiser/bookings">Bookings</a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="/organiser/logout">Logout</a></li>
+      </ul>
+    </nav>
+    <div class="main">
+      <nav class="navbar navbar-expand navbar-light navbar-bg">
+        <a class="sidebar-toggle js-sidebar-toggle">
+          <i class="hamburger align-self-center"></i>
+        </a>
+      </nav>
+      <main class="content">
+        <div class="container-fluid p-0">
+    <h1 class="mb-3">Organiser Edit Event Page</h1>
+    <!-- Display event creation date -->
+    <p><strong>Created:</strong> <%= event.created_at %></p>
+    <% if (error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+    <form action="/organiser/event/<%= event.event_id %>" method="POST">
+      <!-- Hidden field to carry creation date through form (for re-display on error) -->
+      <input type="hidden" name="created_at" value="<%= event.created_at %>">
+      <div class="mb-3">
+        <label for="title" class="form-label">Event Title:</label>
+        <input type="text" name="title" id="title" class="form-control" value="<%= event.title %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Event Description:</label>
+        <textarea name="description" id="description" class="form-control" rows="3" required><%= event.description %></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="event_date" class="form-label">Event Date & Time:</label>
+        <input type="datetime-local" name="event_date" id="event_date" class="form-control" value="<%= eventDateValue %>" required>
+      </div>
+      <div class="mb-3 row">
+        <div class="col-sm-6">
+          <label for="tickets_full_count" class="form-label">Full-price Tickets Count:</label>
+          <input type="number" name="tickets_full_count" id="tickets_full_count" class="form-control" value="<%= event.tickets_full_count %>" min="0" required>
+        </div>
+        <div class="col-sm-6">
+          <label for="full_price" class="form-label">Full-price Ticket Price:</label>
+          <input type="number" name="full_price" id="full_price" class="form-control" value="<%= event.full_price %>" min="0" step="0.01" required>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <div class="col-sm-6">
+          <label for="tickets_concession_count" class="form-label">Concession Tickets Count:</label>
+          <input type="number" name="tickets_concession_count" id="tickets_concession_count" class="form-control" value="<%= event.tickets_concession_count %>" min="0" required>
+        </div>
+        <div class="col-sm-6">
+          <label for="concession_price" class="form-label">Concession Ticket Price:</label>
+          <input type="number" name="concession_price" id="concession_price" class="form-control" value="<%= event.concession_price %>" min="0" step="0.01" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit Changes</button>
+      <a href="/organiser" class="btn btn-secondary">Back to Home</a>
+    </form>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@adminkit/core@3.0.0/dist/js/app.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Organiser Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/@adminkit/core@3.0.0/dist/css/app.min.css" rel="stylesheet">
+  <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Event Manager</a>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="/attendee">Events</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container mt-5" style="max-width: 400px;">
+    <h1 class="mb-4">Organiser Login</h1>
+    <% if (error) { %>
+      <div class="alert alert-danger">Invalid password. Please try again.</div>
+    <% } %>
+    <form method="POST" action="/organiser/login">
+      <div class="mb-3">
+        <label for="password" class="form-label">Password:</label>
+        <input type="password" name="password" id="password" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Log In</button>
+    </form>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@adminkit/core@3.0.0/dist/js/app.min.js"></script>
+</body>
+</html>

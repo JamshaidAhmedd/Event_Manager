@@ -1,34 +1,43 @@
+-- Drop existing tables if they exist (including template sample tables)
+DROP TABLE IF EXISTS bookings;
+DROP TABLE IF EXISTS events;
+DROP TABLE IF EXISTS site_info;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS email_accounts;
 
--- This makes sure that foreign_key constraints are observed and that errors will be thrown for violations
-PRAGMA foreign_keys=ON;
-
-BEGIN TRANSACTION;
-
--- Create your tables with SQL commands here (watch out for slight syntactical differences with SQLite vs MySQL)
-
-CREATE TABLE IF NOT EXISTS users (
-    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_name TEXT NOT NULL
+-- Site information table (holds site name and description)
+CREATE TABLE site_info (
+    site_id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS email_accounts (
-    email_account_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    email_address TEXT NOT NULL,
-    user_id  INT, --the user that the email account belongs to
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+-- Events table (holds event details)
+CREATE TABLE events (
+    event_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    event_date TEXT,  -- when the event is scheduled (null or empty if not set)
+    tickets_full_count INTEGER NOT NULL,
+    tickets_concession_count INTEGER NOT NULL,
+    full_price REAL NOT NULL,
+    concession_price REAL NOT NULL,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL,
+    published INTEGER NOT NULL DEFAULT 0,
+    published_at TEXT
 );
 
--- Insert default data (if necessary here)
+-- Bookings table (holds attendee bookings for events)
+CREATE TABLE bookings (
+    booking_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    event_id INTEGER NOT NULL,
+    name TEXT NOT NULL,               -- attendee name
+    full_count INTEGER NOT NULL,      -- number of full-price tickets booked
+    concession_count INTEGER NOT NULL, -- number of concession tickets booked
+    FOREIGN KEY(event_id) REFERENCES events(event_id) ON DELETE CASCADE
+);
 
--- Set up three users
-INSERT INTO users ('user_name') VALUES ('Simon Star');
-INSERT INTO users ('user_name') VALUES ('Dianne Dean');
-INSERT INTO users ('user_name') VALUES ('Harry Hilbert');
-
--- Give Simon two email addresses and Diane one, but Harry has none
-INSERT INTO email_accounts ('email_address', 'user_id') VALUES ('simon@gmail.com', 1); 
-INSERT INTO email_accounts ('email_address', 'user_id') VALUES ('simon@hotmail.com', 1); 
-INSERT INTO email_accounts ('email_address', 'user_id') VALUES ('dianne@yahoo.co.uk', 2); 
-
-COMMIT;
-
+-- Insert default site info (initial site name and description)
+INSERT INTO site_info(site_id, name, description)
+VALUES (1, 'My Event Manager', 'Event management system');

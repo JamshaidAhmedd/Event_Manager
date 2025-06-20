@@ -1,1 +1,35 @@
-/* Define styles */
+/* Custom styles for the Event Manager app */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  min-height: 100vh;
+}
+
+.hero {
+  background-image: url('https://images.unsplash.com/photo-1557682260-b9628577445b?auto=format&fit=cover&w=1600&q=80');
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  padding: 100px 0;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+}
+
+.container {
+  margin-bottom: 40px;
+}
+
+/* Style for "sold-out" text */
+.sold-out {
+  color: #d9534f;  /* Bootstrap danger color (red) */
+  font-weight: bold;
+}
+
+.navbar-dark .navbar-brand {
+  font-weight: 600;
+}
+
+.btn {
+  border-radius: 30px;
+  font-weight: 600;
+}

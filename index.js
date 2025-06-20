@@ -1,42 +1,65 @@
 /**
-* index.js
-* This is your main app entry point
-*/
-
-// Set up express, bodyparser and EJS
+ * index.js - Main application entry point.
+ * Sets up the Express server, connects to SQLite database, configures middleware (session, static files, etc.),
+ * and defines top-level routes.
+ */
 const express = require('express');
-const app = express();
-const port = 3000;
-var bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: true }));
-app.set('view engine', 'ejs'); // set the app to use ejs for rendering
-app.use(express.static(__dirname + '/public')); // set location of static files
-
-// Set up SQLite
-// Items in the global namespace are accessible throught out the node application
+const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
-global.db = new sqlite3.Database('./database.db',function(err){
-    if(err){
-        console.error(err);
-        process.exit(1); // bail out we can't connect to the DB
-    } else {
-        console.log("Database connected");
-        global.db.run("PRAGMA foreign_keys=ON"); // tell SQLite to pay attention to foreign key constraints
-    }
-});
+const session = require('express-session');
+const { open } = require('sqlite3');  // (optional: not used directly)
+require('dotenv').config();
 
-// Handle requests to the home page 
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Security best practice: hide Express tech header
+app.disable('x-powered-by');
+
+// Set EJS as templating engine and point to views directory
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Body parser middleware to handle form submissions
+app.use(express.urlencoded({ extended: true }));
+
+// Serve static files from "public" directory (for CSS, client-side JS, etc.)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Configure session for organiser login (uses a secret from .env or default)
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'secret',
+  resave: false,
+  saveUninitialized: false,
+  // Cookie settings (HttpOnly, etc.) - adjust secure flag as needed for production
+  cookie: { httpOnly: true, secure: false, sameSite: true }
+}));
+
+// Connect to SQLite database file
+const db = new sqlite3.Database('database.db', (err) => {
+  if (err) {
+    console.error("Error opening database:", err.message);
+  } else {
+    console.log("Connected to SQLite database.");
+    // Enable foreign key constraints for referential integrity
+    db.run("PRAGMA foreign_keys = ON");
+  }
+});
+// Make the database connection accessible in routes via app.locals
+app.locals.db = db;
+
+// Define the main home page route (links to organiser and attendee sections)
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+  res.render('main');
 });
 
-// Add all the route handlers in usersRoutes to the app under the path /users
-const usersRoutes = require('./routes/users');
-app.use('/users', usersRoutes);
+// Mount the organiser and attendee routers
+const organiserRouter = require('./routes/organiser');
+const attendeeRouter = require('./routes/attendee');
+app.use('/organiser', organiserRouter);
+app.use('/attendee', attendeeRouter);
 
-
-// Make the web application listen for HTTP requests
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
-
+// Start the server on the specified PORT
+app.listen(PORT, () => {
+  console.log(`Event Manager app listening at http://localhost:${PORT}/`);
+});
