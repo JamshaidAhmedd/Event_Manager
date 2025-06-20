@@ -3,22 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <title>Organiser Home</title>
-  <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.0.0/dist/css/coreui.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@adminkit/core@3.0.0/dist/css/app.min.css" rel="stylesheet">
   <link href="/main.css" rel="stylesheet">
 </head>
 <body>
-  <div class="container mt-4">
-    <!-- Navigation bar for organiser pages -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/organiser">Organiser</a>
-        <div class="navbar-nav">
-          <a class="nav-link" href="/organiser/settings">Site Settings</a>
-          <a class="nav-link" href="/organiser/bookings">All Bookings</a>
-          <a class="nav-link" href="/organiser/logout">Logout</a>
-        </div>
-      </div>
+  <div class="wrapper">
+    <nav id="sidebar" class="sidebar js-sidebar">
+      <a class="sidebar-brand" href="/organiser">
+        <span class="align-middle">Organiser</span>
+      </a>
+      <ul class="sidebar-nav">
+        <li class="sidebar-item"><a class="sidebar-link" href="/organiser">Dashboard</a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="/organiser/settings">Settings</a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="/organiser/bookings">Bookings</a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="/organiser/logout">Logout</a></li>
+      </ul>
     </nav>
+    <div class="main">
+      <nav class="navbar navbar-expand navbar-light navbar-bg">
+        <a class="sidebar-toggle js-sidebar-toggle">
+          <i class="hamburger align-self-center"></i>
+        </a>
+      </nav>
+      <main class="content">
+        <div class="container-fluid p-0">
     <h1 class="mb-3">Organiser Home Page</h1>
     <!-- Display site name and description -->
     <h3><%= siteName %></h3>
@@ -118,7 +126,10 @@
         </table>
       </div>
     <% } %>
+        </div>
+      </main>
+    </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.0.0/dist/js/coreui.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@adminkit/core@3.0.0/dist/js/app.min.js"></script>
 </body>
 </html>
