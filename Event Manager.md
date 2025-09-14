@@ -2,6 +2,23 @@
 
 This demo Express application provides a simple event management system with organiser and attendee sections. The organiser dashboard uses the AdminKit template for a modern sidebar layout. All pages now share a unified navbar and the landing page displays a full-width hero background.
 
+## Screenshots
+
+### Home Page
+![Home Page](./Event%20Manager/Home%20PAge.png)
+
+### Attendee Homepage
+![Attendee Homepage](./Event%20Manager/Attendee%20Homepage.png)
+
+### Attendee Event Page
+![Attendee Event Page](./Event%20Manager/Attendee%20Event%20Page.png)
+
+### Organiser Dashboard
+![Organiser Dashboard](./Event%20Manager/dashboard.png)
+
+### Organiser Settings
+![Organiser Settings](./Event%20Manager/Organiser%20Settings.png)
+
 ## Setup
 
 1. Install dependencies:
